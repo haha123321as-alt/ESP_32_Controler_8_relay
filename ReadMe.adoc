@@ -1,58 +1,120 @@
-:Author: thopheco105
-:Email:
+:Author: Hà Văn Đạt - Dương Hải Đăng - Nguyễn Mạnh Lân
+:School: Học Viện Kỹ Thuật Mật Mã 
 :Date: 05/11/2025
 :Revision: version#
 :License: Public Domain
 
-= Project: {Project}
+= Project: ESP32-Based 8-Relay Control System via Google Home
 
-Describe your project
+This project implements an IoT-based home automation system using an ESP32 microcontroller to control eight relay channels through Google Home voice commands.
 
-== Step 1: Installation
-Please describe the steps to install this project.
+The system enables users to remotely control electrical devices via the Internet, providing a practical demonstration of smart home technologies.  
+Key features include WiFi configuration through a captive portal, over-the-air (OTA) firmware updates, and seamless integration with Google Home for voice control.
 
-For example:
+The project is developed as *Project 2* and focuses on system integration, network connectivity, and real-time device control.
 
-1. Open this file
-2. Edit as you like
-3. Release to the World!
+A full demonstration of the system is available in the following video:
 
-== Step 2: Assemble the circuit
+*Video demo:* https://youtu.be/fp8oZTBzxIA
 
-Assemble the circuit following the diagram layout.png attached to the sketch
+== System Overview
 
-== Step 3: Load the code
+The ESP32 acts as the central controller, connecting to a WiFi network and communicating with cloud services that interface with Google Home.  
+Each relay channel is mapped to a virtual smart device, allowing independent on/off control via voice commands or mobile applications.
 
-Upload the code contained in this sketch on to your board
+Main functional modules:
+- WiFi configuration and network management
+- Google Home integration
+- Relay control logic (8 channels)
+- OTA firmware update
+- System monitoring and recovery
+
+== Step 1: Installation and Setup
+
+1. Clone or download this repository to your local machine.
+2. Open the project using the Arduino IDE or PlatformIO.
+3. Install the required ESP32 board package and libraries.
+4. Compile the project to verify that all dependencies are correctly installed.
+
+== Step 2: Assemble the hardware
+
+Assemble the hardware according to the provided schematics and layout:
+
+- ESP32 development board
+- 8-channel relay module
+- External power supply (if required)
+
+Refer to:
+- `schematics.png` for logical connections
+- `layout.png` for physical wiring guidance
+
+Ensure correct power isolation between the ESP32 and high-voltage relay loads.
+
+== Step 3: WiFi configuration
+
+At first boot, the ESP32 starts in WiFi configuration mode:
+
+1. Connect to the temporary WiFi access point created by the ESP32.
+2. Open the configuration web page.
+3. Enter the target WiFi SSID and password.
+4. Save the configuration and reboot the system.
+
+The device will automatically reconnect to the configured network on subsequent boots.
+
+== Step 4: Upload and update firmware (OTA)
+
+The system supports Over-The-Air updates:
+
+1. Connect the ESP32 to the same network as your computer.
+2. Upload new firmware wirelessly using the configured OTA service.
+3. Monitor update progress via the Serial Monitor or web interface.
+
+This allows firmware upgrades without physical access to the device.
+
+== Step 5: Google Home control
+
+After successful network connection:
+- Each relay is registered as a controllable smart device.
+- Relays can be switched on or off using Google Home voice commands.
+- The system supports individual and group control of relay channels.
 
 === Folder structure
 
 ....
- sketch123                => Arduino sketch folder
-  ├── sketch123.ino       => main Arduino file
-  ├── schematics.png      => (optional) an image of the required schematics
-  ├── layout.png          => (optional) an image of the layout
-  └── ReadMe.adoc         => this file
+ esp32_google_home_relay      => Project root directory
+  ├── SMART_HOME_nov05a.ino   => Main application file
+  ├── wifiConfig.h                 => WiFi configuration module
+  ├── OTAUpdate.h                  => OTA update handling
+  ├── arduino_secrets.h              
+  ├── config.h                 
+  ├── sketch.json               
+  ├── thingProperties.h                   
+  └── ReadMe.adoc                  
 ....
 
 === License
-This project is released under a {License} License.
+
+This project is released under the *Public Domain* License.  
+You are free to use, modify, and distribute this project for educational and non-commercial purposes.
 
 === Contributing
-To contribute to this project please contact: 
 
-=== BOM
-Add the bill of the materials you need for this project.
+Contributions and improvements are welcome.  
+Please contact the author if you wish to extend or adapt this project.
+
+=== BOM (Bill of Materials)
 
 |===
-| ID | Part name      | Part number | Quantity
-| R1 | 10k Resistor   | 1234-abcd   | 10       
-| L1 | Red LED        | 2345-asdf   | 5        
-| A1 | Arduino Zero   | ABX00066    | 1        
+| ID | Part name                | Part number | Quantity
+| U1 | ESP32 Dev Module         | ESP32-WROOM | 1
+| R1 | 8-Channel Relay Module   | SRD-12VDC-SL-C | 1
+| P1 | Power Supply             | 5V / 3.3V   | 1
 |===
-
 
 === Help
-This document is written in the _AsciiDoc_ format, a markup language to describe documents. 
-If you need help you can search the http://www.methods.co.nz/asciidoc[AsciiDoc homepage]
-or consult the http://powerman.name/doc/asciidoc[AsciiDoc cheatsheet]
+
+This document is written in the _AsciiDoc_ format.  
+For more information, please visit:
+
+- http://www.methods.co.nz/asciidoc[AsciiDoc homepage]
+- http://powerman.name/doc/asciidoc[AsciiDoc cheatsheet]
